@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>INVENTRA — Inventory Management System</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<div id="loginScreen" class="login-screen">
+  <div class="orb orb-a"></div><div class="orb orb-b"></div><div class="orb orb-c"></div>
+  <div class="login-card">
+    <div class="brand"><span class="brand-mark">✦</span><span>INVENTRA</span></div>
+    <div class="login-kicker">MINOR PROJECT · 2026</div>
+    <h1>Inventory, <span>intelligently.</span></h1>
+    <p class="login-copy">A premium inventory operations workspace built for fast, clear and confident decisions.</p>
+    <form id="loginForm">
+      <label>Email<input id="loginEmail" type="email" autocomplete="username" placeholder="admin@inventra.local" required></label>
+      <label>Password<div class="password-wrap"><input id="loginPassword" type="password" autocomplete="current-password" placeholder="Enter password" required><button type="button" id="togglePassword">◉</button></div></label>
+      <button class="btn btn-primary btn-wide" type="submit">Enter workspace <span>→</span></button>
+    </form>
+    <div class="demo-login"><b>Showcase accounts</b><div><button data-demo="admin">Admin</button><button data-demo="manager">Manager</button><button data-demo="staff">Staff</button><button data-demo="viewer">Viewer</button></div></div>
+    <div id="loginMessage" class="form-message"></div>
+  </div>
+  <div class="login-footer">Maharishi University of Information Technology · Diploma Computer Science · 5th Semester</div>
+</div>
+
+<div id="app" class="app hidden">
+<aside class="sidebar" id="sidebar">
+  <div class="sidebar-top"><div class="brand"><span class="brand-mark">✦</span><span>INVENTRA</span></div><button id="closeSidebar" class="mobile-close">×</button></div>
+  <div class="workspace-pill"><span class="live-dot"></span><span>LIVE WORKSPACE</span></div>
+  <nav>
+    <button class="nav active" data-view="dashboard"><i>⌂</i>Overview</button>
+    <button class="nav" data-view="products"><i>▦</i>Products</button>
+    <button class="nav" data-view="categories"><i>◈</i>Categories</button>
+    <button class="nav" data-view="suppliers"><i>◇</i>Suppliers</button>
+    <button class="nav" data-view="customers"><i>◎</i>Customers</button>
+    <button class="nav" data-view="purchases"><i>↓</i>Receive Stock</button>
+    <button class="nav" data-view="sales"><i>↑</i>Sales</button>
+    <button class="nav" data-view="transactions"><i>↔</i>Inventory Log</button>
+    <button class="nav" data-view="users" data-role="ADMIN"><i>♙</i>Users & Access</button>
+    <button class="nav" data-view="presentation"><i>▣</i>Project Slides</button>
+  </nav>
+  <div class="sidebar-bottom"><div class="system"><span class="live-dot"></span>Local data engine online</div><div class="profile"><div class="avatar" id="sideAvatar">SA</div><div><strong id="sideName">Administrator</strong><small id="sideRole">ADMIN</small></div><button id="logoutBtn" title="Logout">↪</button></div></div>
+</aside>
+<div class="mobile-shade" id="mobileShade"></div>
+<main class="main">
+<header class="topbar"><div class="top-left"><button class="menu-btn" id="menuBtn">☰</button><div><div class="eyebrow" id="viewKicker">OPERATIONS</div><h2 id="pageTitle">Overview</h2></div></div><div class="top-actions"><div class="clock" id="clock"></div><button class="icon-btn" id="refreshBtn">↻</button><button class="btn btn-primary" id="globalBtn">+ New Product</button></div></header>
+
+<section class="view active" id="view-dashboard">
+  <div class="hero"><div><div class="eyebrow">CONTROL CENTER</div><h1>Run inventory<br><span>with precision.</span></h1><p>Products, purchasing, sales and stock intelligence — connected in one responsive workspace.</p></div><div class="hero-badge"><span>✦</span><b>SHOWCASE MODE</b><small>Fast · Clear · Professional</small></div></div>
+  <div class="kpis"><article><div class="kpi-icon c1">▦</div><span>Active Products</span><strong id="kProducts">0</strong><small>SKUs in catalog</small></article><article><div class="kpi-icon c2">◫</div><span>Total Units</span><strong id="kUnits">0</strong><small>Across all products</small></article><article><div class="kpi-icon c3">₹</div><span>Inventory Value</span><strong id="kValue">₹0</strong><small>At purchase cost</small></article><article><div class="kpi-icon c4">!</div><span>Low Stock</span><strong id="kLow">0</strong><small>Needs attention</small></article></div>
+  <div class="dashboard-grid"><section class="panel"><div class="panel-head"><div><div class="eyebrow">SHORTCUTS</div><h3>Operational actions</h3></div></div><div class="quick-grid"><button class="quick" data-action="product"><span>＋</span><b>Add Product</b><small>Create a new SKU</small></button><button class="quick" data-action="purchase"><span>↓</span><b>Receive Stock</b><small>Increase inventory</small></button><button class="quick" data-action="sale"><span>↑</span><b>Record Sale</b><small>Reduce inventory</small></button><button class="quick" data-action="category"><span>◈</span><b>Add Category</b><small>Organize catalog</small></button></div></section><section class="panel"><div class="panel-head"><div><div class="eyebrow">ATTENTION</div><h3>Low stock watch</h3></div><button class="link-btn" data-go="products">View all →</button></div><div id="lowStockList" class="mini-list"></div></section></div>
+  <section class="panel recent"><div class="panel-head"><div><div class="eyebrow">ACTIVITY</div><h3>Recent inventory movement</h3></div><button class="link-btn" data-go="transactions">Open log →</button></div><div class="activity-list" id="recentActivity"></div></section>
+</section>
+
+<section class="view" id="view-products"><div class="content-head"><div><div class="eyebrow">CATALOG</div><h1>Products</h1><p>Manage every SKU, price, stock level and lifecycle state.</p></div><button class="btn btn-primary" data-action="product">+ Add Product</button></div><div class="toolbar"><input id="productSearch" placeholder="Search product name or SKU…"><label class="filter"><input type="checkbox" id="lowOnly"> Low stock only</label></div><div class="panel table-panel"><div class="table-wrap"><table><thead><tr><th>Product</th><th>SKU</th><th>Category</th><th>Purchase</th><th>Selling</th><th>Stock</th><th>State</th><th></th></tr></thead><tbody id="productsTable"></tbody></table></div></div></section>
+<section class="view" id="view-categories"><div class="content-head"><div><div class="eyebrow">ORGANIZATION</div><h1>Categories</h1><p>Structure your catalog for faster decisions.</p></div><button class="btn btn-primary" data-action="category">+ Add Category</button></div><div class="cards-grid" id="categoryCards"></div></section>
+<section class="view" id="view-suppliers"><div class="content-head"><div><div class="eyebrow">PROCUREMENT</div><h1>Suppliers</h1><p>Maintain reliable vendor information.</p></div><button class="btn btn-primary" data-action="supplier">+ Add Supplier</button></div><div class="cards-grid" id="supplierCards"></div></section>
+<section class="view" id="view-customers"><div class="content-head"><div><div class="eyebrow">CUSTOMERS</div><h1>Customers</h1><p>Keep customer records ready for every sale.</p></div><button class="btn btn-primary" data-action="customer">+ Add Customer</button></div><div class="cards-grid" id="customerCards"></div></section>
+<section class="view" id="view-purchases"><div class="content-head"><div><div class="eyebrow">PROCUREMENT</div><h1>Receive Stock</h1><p>Record incoming inventory and automatically update quantities.</p></div></div><div class="panel form-panel"><form id="purchaseForm" class="form-grid"><label>Supplier<select id="purchaseSupplier" required></select></label><label>Reference<input id="purchaseRef" placeholder="PO-2026-001"></label><label>Product<select id="purchaseProduct" required></select></label><label>Quantity<input id="purchaseQty" type="number" min="1" value="1" required></label><label>Unit Cost<input id="purchaseCost" type="number" min="0" step="0.01" required></label><div class="full form-actions"><button class="btn btn-primary">Receive stock →</button></div></form></div></section>
+<section class="view" id="view-sales"><div class="content-head"><div><div class="eyebrow">SALES</div><h1>Record Sale</h1><p>Sell inventory with automatic stock deduction.</p></div></div><div class="panel form-panel"><form id="saleForm" class="form-grid"><label>Customer<select id="saleCustomer"><option value="">Walk-in customer</option></select></label><label>Payment<select id="salePayment"><option>CASH</option><option>CARD</option><option>UPI</option><option>BANK</option></select></label><label>Product<select id="saleProduct" required></select></label><label>Quantity<input id="saleQty" type="number" min="1" value="1" required></label><label>Unit Price<input id="salePrice" type="number" min="0" step="0.01" required></label><div class="full form-actions"><button class="btn btn-primary">Complete sale →</button></div></form></div></section>
+<section class="view" id="view-transactions"><div class="content-head"><div><div class="eyebrow">AUDIT TRAIL</div><h1>Inventory Log</h1><p>Every stock movement is stored locally in this browser.</p></div><button class="btn btn-ghost" id="clearLogBtn">Clear log</button></div><div class="panel table-panel"><div class="table-wrap"><table><thead><tr><th>Date</th><th>Product</th><th>Type</th><th>Change</th><th>Before</th><th>After</th><th>Reference</th></tr></thead><tbody id="transactionsTable"></tbody></table></div></div></section>
+<section class="view" id="view-users"><div class="content-head"><div><div class="eyebrow">SECURITY</div><h1>Users & Access</h1><p>Multi-user role controls for your showcase environment.</p></div><button class="btn btn-primary" data-action="user">+ Add User</button></div><div class="cards-grid" id="userCards"></div></section>
+<section class="view" id="view-presentation"><div class="slide-wrap"><div class="slide-progress"><span id="slideCounter">01 / 06</span><div><button id="prevSlide">←</button><button id="nextSlide">→</button></div></div><div class="slide" id="slide"></div><div class="slide-dots" id="slideDots"></div></div></section>
+</main></div>
+
+<div id="modalBackdrop" class="modal-backdrop"><div class="modal"><div class="modal-head"><div><div class="eyebrow" id="modalKicker">CREATE</div><h2 id="modalTitle">Add Product</h2></div><button id="closeModal" class="close">×</button></div><form id="modalForm"></form></div></div>
+<div id="toast" class="toast"></div>
+<script src="js/app.js"></script>
+</body></html>
